@@ -5,7 +5,7 @@ import com.jaatrasolutions.MIR_Decoder.Entities.TaxGd;
 import com.jaatrasolutions.MIR_Decoder.Entities.TicketGd;
 
 public interface DecoderService {
-	public void insetIntoTickey_GD(TicketGd ticketGd) throws Exception ;
+	public void insetIntoTicket_GD(TicketGd ticketGd) throws Exception ;
 
 	public void insertIntoFare_GD(FareGd fareGd) throws Exception;
 

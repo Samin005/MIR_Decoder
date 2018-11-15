@@ -40,6 +40,7 @@ public class ReadFromFile {
         int EmptyLineCount = 0;
         boolean status = false;
         String airlineCodeDigits = "";
+        String vcAirlineCode = "";
         
         try {
         	while(mirSC.hasNextLine()){
@@ -51,8 +52,8 @@ public class ReadFromFile {
             		ticketGd.setVcCompCode(vcCompCode);
             		fareGd.setVcCompCode(vcCompCode);
             		//airline code
-            		String vcAirlineCode = firstLine.substring(24, 26);
-            		System.out.println("Airline code"+vcAirlineCode);
+            		vcAirlineCode = firstLine.substring(24, 26);
+            		System.out.println("Airline code: "+vcAirlineCode);
             		ticketGd.setVcAirlineCode(vcAirlineCode);
             		//airline code in digits
             		airlineCodeDigits = firstLine.substring(27, 30);
@@ -189,6 +190,10 @@ public class ReadFromFile {
             		System.out.print("Current Line 2: ");
             		while(!(currentLine = mirSC.nextLine()).equals("")) {
             			String firstLine = currentLine;
+            			//Flight No
+            			String vcFlightNo = vcAirlineCode+firstLine.substring(59, 62);
+            			System.out.println("Flight No: "+vcFlightNo);
+						ticketGd.setVcFlightNo(vcFlightNo );
             			//Class
             			String vcClass = firstLine.substring(62, 63);
             			System.out.println("Class: "+vcClass);

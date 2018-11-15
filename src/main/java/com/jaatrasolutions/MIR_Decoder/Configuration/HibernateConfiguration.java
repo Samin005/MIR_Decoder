@@ -10,7 +10,7 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan({ "com.jaatrasolutions.MIR_Decoder.Configuration" })
-@PropertySource(value = { "file:///E:/Jaatra Solutions/application.properties" })
+@PropertySource(value = { "file:///C:/MIR/application.properties" })
 public class HibernateConfiguration {
 	@Autowired
 	Environment env;

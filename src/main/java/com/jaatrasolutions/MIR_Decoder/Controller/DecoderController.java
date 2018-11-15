@@ -24,22 +24,21 @@ public class DecoderController {
 	private WatchService watcher;
 	@Autowired
 	private Environment env;
-	public String start() {
+	public void start() {
 		
 		String directory = env.getProperty("MIR.InputFile.Location");
 		Path myDir = Paths.get(directory);
 		String comp_code = env.getProperty("MIR.InputFile.CompCode");
         boolean createdFile = false;
         boolean deletedFile = false;
-        
-        try {
-            while(true){
-         	   watcher = myDir.getFileSystem().newWatchService();
+        while(true){
+    		try {
+        		watcher = myDir.getFileSystem().newWatchService();
                 myDir.register(watcher, StandardWatchEventKinds.ENTRY_CREATE, 
                 StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY);
-
+                
                 WatchKey watckKey = watcher.take();
-
+                Thread.sleep(5000);
                 List<WatchEvent<?>> events = watckKey.pollEvents();
          	   for (WatchEvent<?> event : events) {
                     if (event.kind() == StandardWatchEventKinds.ENTRY_CREATE && !createdFile) {
@@ -51,7 +50,7 @@ public class DecoderController {
                         if(rff.start(directory, event.context().toString(), comp_code)){
                      	   System.out.println("Operation OK.");
                      	   //dashboardService.insertIntoTicketGD(rff.getPNR(), rff.getTicket_No(), rff.getPax_Name(), rff.getSector(), rff.getFlight_No(), rff.getFlight_Date(), rff.getFlight_Start_Time(), rff.getFlight_End_Time(), rff.getFlight_Duration(), rff.getFlight_Status(), rff.getAirline_Code(), rff.getAirline_PNR(), rff.getData_Load_Time(), rff.getComp_Code(), rff.getCreate_Date(), rff.getVC_Class());
-                     	  decoderService.insetIntoTickey_GD(rff.ticketGd);
+                     	  decoderService.insetIntoTicket_GD(rff.ticketGd);
                      	  decoderService.insertIntoFare_GD(rff.fareGd);
 //                     	  decoderService.insertIntoTax_GD(rff.taxGd);
                      	  File file = new File(directory+"/"+event.context().toString());
@@ -78,12 +77,13 @@ public class DecoderController {
                         createdFile = false;
                     }
                 }
-         	   watcher.close(); 
-            }
-                       
-         } catch (Exception e) {
+         	   //watcher.close();
+         	  //return "Working Perfectly";
+            }	                       
+    		catch (Exception e) {
              System.out.println("Error: " + e.toString());
-         }
- 		return "Working Perfectly";
+             //return null;
+    		}         		
+        }
  	}
 }

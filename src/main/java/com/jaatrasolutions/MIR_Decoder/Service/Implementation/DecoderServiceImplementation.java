@@ -23,29 +23,21 @@ public class DecoderServiceImplementation implements DecoderService{
 	private TaxGdRepository taxGdRepository;
 
 	@Override
-	public void insetIntoTickey_GD(TicketGd ticketGd) throws Exception {
+	public void insetIntoTicket_GD(TicketGd ticketGd) throws Exception {
 		java.util.Date current_date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yy HH.mm.ss.SSSSSSSSS a");
 		String current_date_day = sdf.format(current_date);
 	    Date parsedDate = sdf.parse(current_date_day);
 	    Timestamp current_timestamp = new java.sql.Timestamp(parsedDate.getTime());
 		
-//		ticketGd.setVcPnrno(vcPnrno);
-//	    ticketGd.setVcTicketno("YOLO");
-//        ticketGd.setVcPaxName("Pax_Name");
-//	    ticketGd.setVcSector("Sector");
-	    ticketGd.setVcFlightNo("Flight No");
-//	    ticketGd.setDtFlightDate(current_timestamp);
-	    ticketGd.setVcFlightStartTime("FlightST");
-	    ticketGd.setVcFlightEndTime("FlightET");
-	    ticketGd.setVcFlightDuration("FlightD");
-	    ticketGd.setVcFlightStatus("FlightS");
-//	    ticketGd.setVcAirlineCode("AirlineC");
-	    ticketGd.setVcAirlinePnr("AirlinePNR");
+
+	    ticketGd.setVcFlightStartTime("");
+	    ticketGd.setVcFlightEndTime("");
+	    ticketGd.setVcFlightDuration("");
+	    ticketGd.setVcFlightStatus("");
+	    ticketGd.setVcAirlinePnr("");
 	    ticketGd.setDtDataLoadTime(current_timestamp);
-//	    ticketGd.setVcCompCode("Company_Code");
 	    ticketGd.setCreateddate(current_timestamp);
-//	    ticketGd.setVcClass("VC_Class");
 		
         ticketGdRepository.save(ticketGd);
 //        taxGdRepository.saveAll(ticketGd.getTaxGdList());
