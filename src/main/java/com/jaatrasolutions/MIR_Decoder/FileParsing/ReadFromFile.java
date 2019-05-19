@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-//import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.text.SimpleDateFormat;
@@ -101,6 +100,9 @@ public class ReadFromFile {
 	                		//USD Fare Amount
 	                		String usdAmount = thirdLine.substring(3, 15).replaceAll(" ", "");
 	                		System.out.println("Usd Fare Amount: "+usdAmount);
+	                		if(usdAmount.equals("")) {
+	                			usdAmount = "0";
+	                    	}
 	                		BigDecimal nuUsdFareAmount = new BigDecimal(usdAmount);
 	                		fareGd.setNuUsdFareAmount(nuUsdFareAmount);
 	                		List<TaxGd> taxGdList = new ArrayList<>();
@@ -133,7 +135,7 @@ public class ReadFromFile {
 	                		}               		
 	                			                		
 	                    	String fourthLine = mirSC.nextLine();
-	                    	for(int i=0;i<=51;){
+	                    	for(int i=0;i<51;){
 	                			TaxGd taxGd = new TaxGd();
 	                			taxGd.setVcTicketNo(vcTicketNo);
 	                			taxGd.setVcCompCode(vcCompCode);
@@ -168,11 +170,17 @@ public class ReadFromFile {
 	                    	fareGd.setVcCurrTypeBase(vcCurrTypeBase);
 	                    	//Base Fare Amount
 	                    	String baseFareAmount = baseFare.substring(3).replaceAll(" ", "");
+	                    	if(baseFareAmount.equals("") && vcCurrTypeUsd.equals("BDT")) {
+	                    		baseFareAmount = ""+nuUsdFareAmount;
+	                    	}
 	                    	BigDecimal nuBaseFareAmount = new BigDecimal(baseFareAmount);
 	                    	System.out.println("Base Fare Amount: "+nuBaseFareAmount);
 	                    	fareGd.setNuBaseFareAmount(nuBaseFareAmount);
 	                    	//Total Amount
 	                    	String totalAmount = fourthLine.substring(54,81).replaceAll(" ","");
+	                    	if(totalAmount.equals("")) {
+	                    		totalAmount = "0";
+	                    	}
 	                    	BigDecimal nuTotalAmnt = new BigDecimal(totalAmount);
 	                    	System.out.println("Total Amount: "+nuTotalAmnt);
 	                    	fareGd.setNuTotalAmnt(nuTotalAmnt);
